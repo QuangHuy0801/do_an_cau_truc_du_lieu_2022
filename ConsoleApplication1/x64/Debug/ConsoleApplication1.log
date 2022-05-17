@@ -1,0 +1,74 @@
+﻿  main.cpp
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\handleFile.h(84,28): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(326,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(627,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(627,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(627,76): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(627,102): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(627,127): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(627,154): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(966,12): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(967,9): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_mon_hoc.h(184,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_mon_hoc.h(185,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_mon_hoc.h(481,2): warning C4551: function call missing argument list
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_mon_hoc.h(521,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(237,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(277,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(285,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(336,22): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(349,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(353,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(394,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(401,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(441,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(447,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(487,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(494,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(534,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(684,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(692,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(747,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(757,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(765,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(798,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(819,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(849,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(869,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(903,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(919,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(950,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1350,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1396,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1404,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1441,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1470,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1511,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1527,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1588,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1651,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1627,7): warning C4101: 'c': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(1764,11): warning C4101: 'c': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(2241,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(2278,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(2286,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(2330,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_lop_tin_chi.h(2177,8): warning C4101: 'c': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(195,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(244,28): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(251,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(196,18): warning C4101: 'sv': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(197,19): warning C4101: 'sv_dk': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(334,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(335,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(385,45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(336,18): warning C4101: 'sv': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(337,19): warning C4101: 'sv_dk': unreferenced local variable
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(512,5): warning C4102: 'INRA': unreferenced label
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_li_diem.h(826,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\mylib.h(28): warning C4172: returning address of local variable or temporary: S
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\handleFile.h(321): warning C4715: 'balanceLeft': not all control paths return a value
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\handleFile.h(342): warning C4715: 'balanceRight': not all control paths return a value
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\handleFile.h(364): warning C4715: 'Inrorder_Sort': not all control paths return a value
+C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\ConsoleApplication1\xu_ly_sinh_vien.h(979): warning C4715: 'so_sanh': not all control paths return a value
+  ConsoleApplication1.vcxproj -> C:\Users\ADMIN\Desktop\do_an_ctdl\bai_ghep_lai\x64\Debug\ConsoleApplication1.exe
