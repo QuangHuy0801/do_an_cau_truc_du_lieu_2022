@@ -61,13 +61,13 @@ const int so_item = 4;
 const int dong = 4;
 const int cot = 60;
 const int MAXLIST = 100;
-const int so_item_ltc = 5;
+const int so_item_ltc = 4;
 
 //char itemloptinchi[so_item_ltc][70] = {
 //	"Them Lop Tin Chi","Xoa Hoac Sua LTC","In Danh Sach LTC","In danh sach SV","Dang Ky Lop TC"
 //};
 char itemloptinchi[so_item_ltc][70] = {
-	"           THEM LOP TIN CHI            ","          XOA SUA LOP TIN CHI           ","         IN DANH SACH LOP TIN CHI        " ,"DANH SACH SINH VIEN DANG KI LOP TIN CHI","          DANG KI LOP TIN CHI           "
+	"           THEM LOP TIN CHI            ","          XOA SUA LOP TIN CHI           ","DANH SACH SINH VIEN DANG KI LOP TIN CHI","          DANG KI LOP TIN CHI           "
 };
 //char menu[so_item][50] = {
 //	"Lop Tin Chi","Sinh Vien","Mon Hoc","Diem"
@@ -76,7 +76,6 @@ void Normal()
 {
 	SetBGColor(6);
 	SetColor(7);
-
 }
 void Normal2()
 {
@@ -99,7 +98,7 @@ void Normal1()
 	SetBGColor(color_darkwhite);
 	SetColor(color_black);
 }
-int DrawMenu(int vt_item, int vt_y) //huu lam
+int DrawMenu(int vt_item, int vt_y)
 {
 	Normal();
 	HideCursor(true);
@@ -120,8 +119,6 @@ int DrawMenu(int vt_item, int vt_y) //huu lam
 		cout << tuychon[i];
 	}
 	HighLight();
-
-	// rectagle(l, t, r, b) *b so voi t
 	rectagle(cot, dong + vt_y + lech_Top, 50, 4);
 	gotoxy(cot + 20, dong + vt_y + lech_Top + 2);
 	cout << tuychon[vt_item];
@@ -227,59 +224,13 @@ int VeLopTinChi(char ltc[so_item_ltc][70])
 	} while (1);
 }
 
-void VeKhungDangNhap()
-{
-	gotoxy(0, 4);
-	int a, b, size = 15;
-	for (a = size / 2; a <= size; a = a + 2)
-	{
-		for (b = 1; b < size - a; b = b + 2)
-			cout << " ";
-		for (b = 1; b <= a; b++)
-			cout << "$";
-		for (b = 1; b <= size - a; b++)
-			cout << " ";
-		for (b = 1; b <= a - 1; b++)
-			cout << "$";
 
-		cout << "\n";
-	}
-	for (a = size; a >= 0; a--)
-	{
-		for (b = a; b < size; b++)
-			cout << " ";
-		for (b = 1; b <= ((a * 2) - 1); b++)
-			cout << "$";
-
-		cout << "\n";
-	}
-	HideCursor(true);
-	gotoxy(58, 8);
-	cout << "DANG NHAP VAO HE THONG";
-	rectagle(45, 10, 50, 12);
-	gotoxy(49, 12);
-	cout << "Usename";
-	rectagle(48, 13, 30, 2);
-	gotoxy(49, 16);
-	cout << "Password";
-	rectagle(48, 17, 30, 2);
-	SetBGColor(7);
-	SetColor(7);
-	rectagle(2, 30, 30, 4);
-	SetColor(0);
-	gotoxy(3, 31);
-
-	cout << "TRAN THU DAT - N19DCCN036";
-	gotoxy(3, 33);
-	cout << "NGUYEN SON BA - N19DCCN013";
-	Normal();
-}
 void Khung_lop_tin_chi()
 {
 	int x = 40, y = 4;
 	Normal();
 	//ve duong ngang
-	for (int i = x + 1; i < x + 90; i++)
+	for (int i = x + 1; i < x + 97; i++)
 	{
 		gotoxy(i, y);
 		cout << char(196);
@@ -312,12 +263,14 @@ void Khung_lop_tin_chi()
 		cout << char(179);
 		gotoxy(x + 90, i);
 		cout << char(179);
+		gotoxy(x + 97, i);
+		cout << char(179);
 	}
 	//4 goc
 	gotoxy(x, y); cout << char(218);
 	gotoxy(x, y + 27); cout << char(192);
-	gotoxy(x + 90, y + 27); cout << char(217);
-	gotoxy(x + 90, y); cout << char(191);
+	gotoxy(x + 97, y + 27); cout << char(217);
+	gotoxy(x + 97, y); cout << char(191);
 	//canh vuong
 	gotoxy(x + 6, y);
 	cout << char(194);
@@ -334,6 +287,8 @@ void Khung_lop_tin_chi()
 	gotoxy(x + 71, y);
 	cout << char(194);
 	gotoxy(x + 80, y);
+	cout << char(194);
+	gotoxy(x + 90, y);
 	cout << char(194);
 
 	gotoxy(x, y + 2);
@@ -356,6 +311,8 @@ void Khung_lop_tin_chi()
 	cout << char(197);
 	gotoxy(x + 90, y + 2);
 	cout << char(180);
+	gotoxy(x + 90, y+2);
+	cout << char(197);
 
 	gotoxy(x + 6, y + 27);
 	cout << char(193);
@@ -373,7 +330,11 @@ void Khung_lop_tin_chi()
 	cout << char(193);
 	gotoxy(x + 80, y + 27);
 	cout << char(193);
-	gotoxy(x + 1, y + 1); cout << "STT";
+	gotoxy(x + 90, y + 27);
+	cout << char(193);
+
+	gotoxy(x + 1, y + 1); 
+	cout << "STT";
 	gotoxy(x + 7, y + 1);
 	cout << "MA LOP";
 	gotoxy(x + 16, y + 1);
@@ -390,6 +351,8 @@ void Khung_lop_tin_chi()
 	cout << "SV MIN";
 	gotoxy(x + 81, y + 1);
 	cout << "CON LAI";
+	gotoxy(x + 92, y + 1);
+	cout << "HUY";
 }
 void Xoa_khung_lop_tin_chi()
 {
@@ -419,6 +382,18 @@ void bang_xoa_sua(int x, int y)
 	cout<<"   F2 : XOA   ";
 	Normal();
 }
+void bang_xoa_sua_huy(int x, int y)
+{
+	SetBGColor(12);
+	SetColor(15);
+	gotoxy(x, y);
+	cout << "  F1 : SUA   ";
+	gotoxy(x + 20, y);
+	cout << "   F2 : XOA   ";
+	gotoxy(x + 40, y);
+	cout << "   ENTER : HUY   ";
+	Normal();
+}
 void Thong_bao(int x, int y, char* c)
 {
 	gotoxy(x, y);
@@ -426,8 +401,9 @@ void Thong_bao(int x, int y, char* c)
 }
 void khung_thong_bao(int x,int y,int w,int h,char *s)
 {
-	SetBGColor(colorbk_cyan);
-	SetColor(color_darkwhite);
+	clrscr();
+	Normal();
+	HideCursor(true);
 	rectagle(x, y, w, h);
 	gotoxy(x + 8, y + 2);
 	cout << s;
@@ -573,16 +549,16 @@ void khung_danh_sach_sv_dk()
 	gotoxy(x + 57 + 15, y); cout << "Ma lop";
 	Normal();
 }
-void xoa_khung_ds_sv_dk()
-{
-	Normal();
-	int x = 45, y = 5;
-	for (int i = 1; i <= 21; i++)
-	{
-		gotoxy(x, y + i);
-		cout << "                                                                             ";
-	}
-}
+//void xoa_khung_ds_sv_dk()
+//{
+//	Normal();
+//	int x = 45, y = 5;
+//	for (int i = 1; i <= 21; i++)
+//	{
+//		gotoxy(x, y + i);
+//		cout << "                                                                             ";
+//	}
+//}
 void khung_mon_dki()
 {
 	int x = 45, y = 5;

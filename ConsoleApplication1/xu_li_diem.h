@@ -4,32 +4,36 @@
 #include<fstream>
 #include <iomanip>
 #include "xu_ly_sinh_vien.h"
-#include"xu_ly_mon_hoc.h"
-#include"xu_li_lop_tin_chi.h"
+#include "xu_ly_mon_hoc.h"
+#include "xu_li_lop_tin_chi.h"
 #include "myEdit.h"
-#include"ctdl.h"
+#include "ctdl.h"
 #include "handleFile.h"
 using namespace std;
 #define item_diem 3
 #define max_mh 100
 
-void tao_khung_diem(DS_LOP_TIN_CHI& ds_ltc, DS_SINH_VIEN& ds_sv);
-void in_diem_cua_ltc(DS_LOP_TIN_CHI& dsltc, char dsmh[4][10], DS_SINH_VIEN &ds_sv,bool mode);
-void In_Diem(DS_LOP_TIN_CHI& ds_ltc, DS_SV_DANG_KY& ds_sv_dk,LOP_TIN_CHI&z, DS_SINH_VIEN ds_sv, bool mode);
-void ghi_diem_ltc(DS_LOP_TIN_CHI& dsltc, char dsmh[4][10], DS_SINH_VIEN& ds_sv,bool mode);
-void In_Diem_cua_lop(DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_lop);
-void get_so_tin_chi(TREE_MON_HOC& T, char* ma_mh, int &tin_chi);
-void In_Diem_tong_ket(DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_lop);
+void tao_khung_diem(TREE_MON_HOC ,DS_LOP_TIN_CHI&, DS_SINH_VIEN& );
+void in_diem_ltc(DS_LOP_TIN_CHI& , DS_SINH_VIEN& ,bool);
+void In_Diem(DS_LOP_TIN_CHI&, DS_SV_DANG_KY&, LOP_TIN_CHI*, DS_SINH_VIEN, bool);
+void ghi_diem_ltc(TREE_MON_HOC ,DS_LOP_TIN_CHI& , DS_SINH_VIEN& ,bool );
+void In_Diem_cua_lop(DS_LOP_TIN_CHI& , DS_SINH_VIEN& );
+void get_so_tin_chi(TREE_MON_HOC&, char*, int&);
+void In_Diem_tong_ket(DS_LOP_TIN_CHI& , DS_SINH_VIEN& );
+
 void menu_diem()
 {
 	DS_LOP_TIN_CHI ds_ltc;
 	int n;
-	doc_file_ltc(ds_ltc, n);
+	Doc_file_ltc(ds_ltc, n);
 	DS_SINH_VIEN ds_sv;
+	TREE_MON_HOC T = NULL;
+	int nLTC;
+	Doc_file_mon_hoc(T);
 	Doc_file_sinh_vien(ds_sv);
-	tao_khung_diem(ds_ltc, ds_sv);
+	tao_khung_diem(T,ds_ltc, ds_sv);
 }
-void tao_khung_diem(DS_LOP_TIN_CHI& ds_ltc, DS_SINH_VIEN& ds_sv)
+void tao_khung_diem(TREE_MON_HOC T,DS_LOP_TIN_CHI& ds_ltc, DS_SINH_VIEN& ds_sv)
 {
 velai:
 	system("cls");
@@ -134,11 +138,10 @@ velai:
 			clrscr();
 			if (luachon == 0)
 			{
-				//in ds mon hoc
-				ghi_diem_ltc(ds_ltc, ds_mh_tam, ds_sv,true);
+				ghi_diem_ltc(T,ds_ltc, ds_sv,true);
 			}
 			else if (luachon == 1) {
-				ghi_diem_ltc(ds_ltc, ds_mh_tam, ds_sv,false);
+				ghi_diem_ltc(T,ds_ltc,  ds_sv,false);
 			}
 			else if (luachon == 2) {
 				DS_SINH_VIEN ds_lop;
@@ -171,6 +174,7 @@ void get_SV_Lop(DS_SINH_VIEN& ds_sv, NODE_SINH_VIEN*& p, int vt) {
 	}
 }
 
+
 void get_so_tin_chi(TREE_MON_HOC& T, char* ma_mh, int &tin_chi) {
 	if (T != NULL) {
 		get_so_tin_chi(T->pleft, ma_mh, tin_chi);
@@ -194,7 +198,7 @@ void In_Diem_cua_lop(DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_lop)
 	int stt = 1, x = 45, y = 8, trang = 1, luachon = 0;
 	int tong_trang = so_trang(1.0 * ds_lop.tongSV / 20);
 	NODE_SINH_VIEN* sv;
-	NOTE_SV_DANG_KI* sv_dk;
+	NODE_SV_DANG_KI* sv_dk;
 chuyen_trang:
 	xoa_man_hinh();
 	Normal();
@@ -236,16 +240,18 @@ chuyen_trang:
 		gotoxy(x + 56 + 3, y + y1);	cout << j->data.TEN;
 		for (int v = 0; v < dsltc.sl; v++) {
 			 t = dsltc.data[v];
-			for (NOTE_SV_DANG_KI* h = dsltc.data[v]->DSSV.pHead; h != NULL; h = h->pNext)
-				if (strcmp(j->data.MASV, h->data.MASV) == 0)
-				{
-					if (h->data.DIEM != -1) {
-						get_so_tin_chi(T, t->MAMH, tin_chi);
-						diem += h->data.DIEM * tin_chi;
-						tong_tin_chi += tin_chi;
-					}
-					break;
-				}
+			 if (t->HUY_LOP == 0) {
+				 for (NODE_SV_DANG_KI* h = dsltc.data[v]->DSSV.pHead; h != NULL; h = h->pNext)
+					 if (strcmp(j->data.MASV, h->data.MASV) == 0)
+					 {
+						 if (h->data.DIEM != -1) {
+							 get_so_tin_chi(T, t->MAMH, tin_chi);
+							 diem += h->data.DIEM * tin_chi;
+							 tong_tin_chi += tin_chi;
+						 }
+						 break;
+					 }
+			 }
 		}
 		if (diem != -1 && tong_tin_chi !=0) {
 			tong_diem = diem*1.00 / tong_tin_chi;
@@ -307,13 +313,17 @@ void mon_hoc_co_trong_lop(DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_lop, char arr[
 	for (NODE_SINH_VIEN* j = ds_lop.pHead; j != NULL; j = j->pNext) {
 		for (int v = 0; v < dsltc.sl; v++) {
 			t = dsltc.data[v];
-			for (NOTE_SV_DANG_KI* h = dsltc.data[v]->DSSV.pHead; h != NULL; h = h->pNext)
-				if (strcmp(j->data.MASV, h->data.MASV) == 0 && check_mang_mh(arr,n,t->MAMH))
-				{
-					strcpy(arr[n] ,t->MAMH);
-					n++;
-					break;
+			if (t->HUY_LOP == 0) {
+				if (t->HUY_LOP == 0) {
+					for (NODE_SV_DANG_KI* h = dsltc.data[v]->DSSV.pHead; h != NULL; h = h->pNext)
+						if (strcmp(j->data.MASV, h->data.MASV) == 0 && h->data.HUYDK == 0 && check_mang_mh(arr, n, t->MAMH))
+						{
+							strcpy(arr[n], t->MAMH);
+							n++;
+							break;
+						}
 				}
+			}
 		}
 	}
 }
@@ -334,7 +344,7 @@ void In_Diem_tong_ket(DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_lop)
 	int tong_trang = so_trang(1.0 * ds_lop.tongSV / 20);
 	int tong_trang2 = so_trang(1.0 * so_mon_hoc / 5);
 	NODE_SINH_VIEN* sv;
-	NOTE_SV_DANG_KI* sv_dk;
+	NODE_SV_DANG_KI* sv_dk;
 chuyen_trang:
 	xoa_man_hinh();
 	Normal();
@@ -365,11 +375,11 @@ chuyen_trang:
 	get_SV_Lop(ds_lop, p, stt - 1);
 	int y1 = 1, count = 0;
 	for (NODE_SINH_VIEN* j = p; j != NULL && count < 20; j = j->pNext) {
-		count++;
-		gotoxy(x + 9, y + (++y1));	cout << char(179) << "              " << char(179) << "                               " << char(179);
-		gotoxy(x + 2 + 1, y + y1);	cout << stt++;
-		gotoxy(x + 9 + 3, y + y1);	cout << j->data.MASV;
-		gotoxy(x + 24 + 3, y + y1);	cout << j->data.HO << " " << j->data.TEN;
+			count++;
+			gotoxy(x + 9, y + (++y1));	cout << char(179) << "              " << char(179) << "                               " << char(179);
+			gotoxy(x + 2 + 1, y + y1);	cout << stt++;
+			gotoxy(x + 9 + 3, y + y1);	cout << j->data.MASV;
+			gotoxy(x + 24 + 3, y + y1);	cout << j->data.HO << " " << j->data.TEN;
 	}
 	LOP_TIN_CHI* t;
 	int y2 = 1; int diem = -1; d = 0; int dem = 0;int count2 = 0;
@@ -378,13 +388,14 @@ chuyen_trang:
 		{
 			for (int v = 0; v < dsltc.sl; v++) {
 				t = dsltc.data[v];
+				if (t->HUY_LOP != 0) continue;
 				if (strcmp(t->MAMH, arr_mon_hoc[j]) != 0)continue;
-				for (NOTE_SV_DANG_KI* h = dsltc.data[v]->DSSV.pHead; h != NULL; h = h->pNext)
-					if (strcmp(i->data.MASV, h->data.MASV) == 0)
-					{
-						if (diem < h->data.DIEM)diem = h->data.DIEM;
-						break;
-					}
+					for (NODE_SV_DANG_KI* h = dsltc.data[v]->DSSV.pHead; h != NULL; h = h->pNext)
+						if (strcmp(i->data.MASV, h->data.MASV) == 0)
+						{
+							if (diem < h->data.DIEM)diem = h->data.DIEM;
+							break;
+						}
 			}
 			if (diem != -1) {
 				gotoxy(x + 63 + d, y + (++y2));	cout << diem;
@@ -465,9 +476,10 @@ chuyen_trang:
 }
 
 
-void ghi_diem_ltc(DS_LOP_TIN_CHI& dsltc, char dsmh[4][10], DS_SINH_VIEN& ds_sv,bool mode) {
-	BD:
-	int vitri = Search_danh_sach_sv_dang_ki(dsltc,true);
+void ghi_diem_ltc(TREE_MON_HOC T, DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_sv,bool mode) {
+BD:
+	
+	int vitri = Search_danh_sach_sv_dang_ki(T,dsltc, true);
 	int x = 45, y = 5;
 	if (vitri == -1)
 	{
@@ -482,33 +494,33 @@ void ghi_diem_ltc(DS_LOP_TIN_CHI& dsltc, char dsmh[4][10], DS_SINH_VIEN& ds_sv,b
 	}
 	else if (vitri == -3)
 	{
-		in_diem_cua_ltc(dsltc, ds_mh_tam, ds_sv,mode);
+		in_diem_ltc(dsltc, ds_sv,mode);
 		return;
 	}
-	else if (vitri != -1 && dsltc.data[vitri]->tong_sv_dk == 0)
+	else if (dsltc.data[vitri]->tong_sv_dk - So_luong_sv_huy_lop(dsltc.data[vitri]) == 0)
 	{
 		char c[100] = "KHONG CO SINH VIEN DANG KI LOP NAY !";
 		Thong_bao(x + 4, y + 23, c);
 		Sleep(1000);
 		goto BD;
 	}
-	In_Diem(dsltc, dsltc.data[vitri]->DSSV ,* dsltc.data[vitri], ds_sv, mode);
-
+	In_Diem(dsltc, dsltc.data[vitri]->DSSV ,dsltc.data[vitri], ds_sv, mode);
 }
 
 
 
-bool check_diem(DS_SV_DANG_KY& ds_sv_dk) {
-	for (NOTE_SV_DANG_KI* i = ds_sv_dk.pHead; i != NULL; i = i->pNext) {
-		if (i->data.DIEM > 0)return 0;
+bool check_chua_nhap_diem(DS_SV_DANG_KY& ds_sv_dk) {
+	for (NODE_SV_DANG_KI* i = ds_sv_dk.pHead; i != NULL; i = i->pNext) {
+		if (i->data.DIEM >=0) return 0;
 	}
 	return 1;
 }
 
 
-void in_diem_cua_ltc(DS_LOP_TIN_CHI& dsltc, char dsmh[4][10], DS_SINH_VIEN& ds_sv,bool mode)
+void in_diem_ltc(DS_LOP_TIN_CHI& dsltc, DS_SINH_VIEN& ds_sv,bool mode)
 {tudau:
 	clrscr();
+	HideCursor(true);
 INRA:
 	{
 		int x = 40, y = 4, row = 0, trang = 0, tongTrang = 0;
@@ -521,6 +533,7 @@ INRA:
 				gotoxy(x + 18, y + 11);
 				cout << "DANH SACH TIN CHI TRONG !";
 				c = GetKey();
+			
 				if (c == key_esc || c == key_Enter)
 				{
 					break;
@@ -543,16 +556,18 @@ INRA:
 			Khung_lop_tin_chi();
 			for (int i = trang * 22; i < 22 + trang * 22 && i < dsltc.sl; i++)
 			{
-				gotoxy(x + 2, y + 3 + row); cout << i + 1;
-				gotoxy(x + 8, y + 3 + row); cout << dsltc.data[i]->MALOPTC;
-				gotoxy(x + 17, y + 3 + row); cout << dsltc.data[i]->MAMH;
-				gotoxy(x + 32, y + 3 + row); cout << dsltc.data[i]->NIEN_KHOA;
-				gotoxy(x + 47, y + 3 + row); cout << dsltc.data[i]->NHOM;
-				gotoxy(x + 57, y + 3 + row); cout << dsltc.data[i]->HOC_KY;
-				gotoxy(x + 65, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX;
-				gotoxy(x + 74, y + 3 + row); cout << dsltc.data[i]->SO_SV_MIN;
-				gotoxy(x + 82, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX - dsltc.data[i]->DSSV.tongSVDK;
-				row++;
+					gotoxy(x + 2, y + 3 + row); cout << i + 1;
+					gotoxy(x + 8, y + 3 + row); cout << dsltc.data[i]->MALOPTC;
+					gotoxy(x + 17, y + 3 + row); cout << dsltc.data[i]->MAMH;
+					gotoxy(x + 32, y + 3 + row); cout << dsltc.data[i]->NIEN_KHOA;
+					gotoxy(x + 47, y + 3 + row); cout << dsltc.data[i]->NHOM;
+					gotoxy(x + 57, y + 3 + row); cout << dsltc.data[i]->HOC_KY;
+					gotoxy(x + 65, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX;
+					gotoxy(x + 74, y + 3 + row); cout << dsltc.data[i]->SO_SV_MIN;
+					gotoxy(x + 82, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX - dsltc.data[i]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[i]);
+					gotoxy(x + 92, y + 3 + row); cout << dsltc.data[i]->HUY_LOP;
+					row++;
+				
 			}
 			int chon = 0;
 			row = 0;
@@ -561,7 +576,7 @@ INRA:
 				Hien_thi_trang(trang + 1, tongTrang, x + 80, y + 28);
 				if (chon == trang * 22)
 				{
-
+					
 					HighLight();
 					gotoxy(x + 2, y + 3); cout << chon + 1;
 					gotoxy(x + 8, y + 3); cout << dsltc.data[chon]->MALOPTC;
@@ -571,7 +586,7 @@ INRA:
 					gotoxy(x + 57, y + 3); cout << dsltc.data[chon]->HOC_KY;
 					gotoxy(x + 65, y + 3); cout << dsltc.data[chon]->SO_SV_MAX;
 					gotoxy(x + 74, y + 3); cout << dsltc.data[chon]->SO_SV_MIN;
-					gotoxy(x + 82, y + 3); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK;
+					gotoxy(x + 82, y + 3); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);
 					Normal();
 				}
 				c = GetKey();
@@ -591,7 +606,7 @@ INRA:
 					gotoxy(x + 57, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->HOC_KY;
 					gotoxy(x + 65, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX;
 					gotoxy(x + 74, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MIN;
-					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK;
+					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 					chon++;
 					HighLight();
 					gotoxy(x + 2, y + 3 + chon - 22 * trang); cout << chon + 1;
@@ -602,7 +617,7 @@ INRA:
 					gotoxy(x + 57, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->HOC_KY;
 					gotoxy(x + 65, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX;
 					gotoxy(x + 74, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MIN;
-					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK;
+					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 					if (chon == 22 * (trang + 1))
 					{
 						trang++;
@@ -619,7 +634,7 @@ INRA:
 							gotoxy(x + 57, y + 3 + row); cout << dsltc.data[i]->HOC_KY;
 							gotoxy(x + 65, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX;
 							gotoxy(x + 74, y + 3 + row); cout << dsltc.data[i]->SO_SV_MIN;
-							gotoxy(x + 82, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX - dsltc.data[i]->DSSV.tongSVDK;
+							gotoxy(x + 82, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX - dsltc.data[i]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 							row++;
 						}
 					}
@@ -635,7 +650,7 @@ INRA:
 					gotoxy(x + 57, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->HOC_KY;
 					gotoxy(x + 65, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX;
 					gotoxy(x + 74, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MIN;
-					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK;
+					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 					chon--;
 					HighLight();
 					gotoxy(x + 2, y + 3 + chon - 22 * trang); cout << chon + 1;
@@ -646,7 +661,7 @@ INRA:
 					gotoxy(x + 57, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->HOC_KY;
 					gotoxy(x + 65, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX;
 					gotoxy(x + 74, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MIN;
-					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK;
+					gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 					if (chon == 22 * trang - 1 && chon != 0)
 					{
 						trang--;
@@ -663,7 +678,7 @@ INRA:
 							gotoxy(x + 57, y + 3 + row); cout << dsltc.data[i]->HOC_KY;
 							gotoxy(x + 65, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX;
 							gotoxy(x + 74, y + 3 + row); cout << dsltc.data[i]->SO_SV_MIN;
-							gotoxy(x + 82, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX - dsltc.data[i]->DSSV.tongSVDK;
+							gotoxy(x + 82, y + 3 + row); cout << dsltc.data[i]->SO_SV_MAX - dsltc.data[i]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 							row++;
 						}
 						HighLight();
@@ -676,39 +691,42 @@ INRA:
 						gotoxy(x + 57, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->HOC_KY;
 						gotoxy(x + 65, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX;
 						gotoxy(x + 74, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MIN;
-						gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK;
+						gotoxy(x + 82, y + 3 + chon - 22 * trang); cout << dsltc.data[chon]->SO_SV_MAX - dsltc.data[chon]->DSSV.tongSVDK + So_luong_sv_huy_lop(dsltc.data[chon]);;
 						Normal();
 
 					}
 				}
 				else if (c == key_Enter) {
 					clrscr();
-					if (dsltc.data[chon]->DSSV.pHead != NULL)
-						In_Diem(dsltc, dsltc.data[chon]->DSSV, *dsltc.data[chon] , ds_sv, mode);
-					else if (check_diem(dsltc.data[chon]->DSSV)&&mode==false&& dsltc.data[chon]->DSSV.pHead == NULL) {
+					if (dsltc.data[chon]->HUY_LOP == 1) {
 						clrscr();
 						SetBGColor(12);
 						rectagle(65, 15, 50, 4);
 						gotoxy(70, 17);
-						cout << "Lop tin chi chua cap nhat diem !!";
+						cout << "Lop nay da bi huy !!";
 						Sleep(1500);
+						Normal();
+					}
+					else if (dsltc.data[chon]->DSSV.pHead != NULL)
+						In_Diem(dsltc, dsltc.data[chon]->DSSV, dsltc.data[chon] , ds_sv, mode);
+					else if (check_chua_nhap_diem(dsltc.data[chon]->DSSV) && mode == false && dsltc.data[chon]->DSSV.pHead == NULL) {
+						clrscr();
+						rectagle(60, 15, 50, 4);
+						gotoxy(70, 17);
+						cout << "Lop tin chi chua cap nhat diem !!";
+						Sleep(1000);
 						Normal();
 					}
 					else {
 						clrscr();
-						SetBGColor(12);
-						rectagle(65, 15, 50, 4);
-						gotoxy(70, 17);
-						cout << "Chua co sinh vien trong lop tin chi !!";
-						Sleep(1500);
+						char s[50] = "Chua co sinh vien trong lop tin chi !!";
+						khung_thong_bao(60, 17, 60, 4, s);
+						Sleep(1000);
 						Normal();
 					}
 					goto tudau;
-				}
-				
-
+				}				
 			}
-
 			row = 0;
 			break;
 		}
@@ -716,7 +734,7 @@ INRA:
 }
 
 
-void HighLight_SV_DK(NOTE_SV_DANG_KI* p1, NODE_SINH_VIEN* p, int x, int y, int stt)
+void HighLight_SV_DK(NODE_SV_DANG_KI* p1, NODE_SINH_VIEN* p, int x, int y, int stt)
 {
 	for (int i = 0; i <= 86; i++)
 	{
@@ -737,15 +755,25 @@ void HighLight_SV_DK(NOTE_SV_DANG_KI* p1, NODE_SINH_VIEN* p, int x, int y, int s
 	Normal();
 }
 
-void get_SV_DK(DS_SV_DANG_KY ds_sv_dk, DS_SINH_VIEN& ds_sv,  NOTE_SV_DANG_KI* &p, NODE_SINH_VIEN* &p1, int vt)
+void get_SV_DK(DS_SV_DANG_KY ds_sv_dk, DS_SINH_VIEN& ds_sv,  NODE_SV_DANG_KI* &svdk, NODE_SINH_VIEN* &sv, int vt)
 {
-	p = ds_sv_dk.pHead;
-	for (int i = 0; i < vt; i++, p = p->pNext);
-	p1 = ds_sv.pHead;
-		while (strcmp(p1->data.MASV, p->data.MASV) != 0)
+	svdk = ds_sv_dk.pHead;
+	
+	if (vt != 0 || svdk->data.HUYDK == 1)
+	{
+		int dem = -1;
+		while (dem != vt && svdk->pNext != NULL)
 		{
-			p1 = p1->pNext;
+			if (svdk->pNext->data.HUYDK == 0) dem++;
+			svdk = svdk->pNext;
 		}
+	}
+	//for (int i = 0; i < vt; i++, svdk = svdk->pNext);
+	sv = ds_sv.pHead;
+	while (strcmp(sv->data.MASV, svdk->data.MASV) != 0)
+	{
+		sv = sv->pNext;
+	}
 }
 
 
@@ -758,7 +786,6 @@ void HighLight_SV_DK(SV_DANG_KY* p1, NODE_SINH_VIEN* p, int x, int y, int stt)
 		cout << ' ';
 	}
 	SetColor(color_black);
-
 	gotoxy(x + 9, y);	cout << char(179) << "              " << char(179) << "                               " << char(179) << "              " << char(179);
 	gotoxy(x + 2 + 1, y);		cout << stt;
 	gotoxy(x + 9 + 3, y);	cout << p->data.MASV;
@@ -769,6 +796,7 @@ void HighLight_SV_DK(SV_DANG_KY* p1, NODE_SINH_VIEN* p, int x, int y, int stt)
 	}
 	Normal();
 }
+
 
 void Normal_SV_DK(SV_DANG_KY p1, NODE_SINH_VIEN* p, int x, int y, int stt)
 {
@@ -803,29 +831,38 @@ void get_ten_mh(TREE_MON_HOC &T, char *ma_mh) {
 
 
 
-
-
-
-
-
-
-void In_Diem(DS_LOP_TIN_CHI& ds_ltc, DS_SV_DANG_KY& ds_sv_dk, LOP_TIN_CHI& z, DS_SINH_VIEN ds_sv, bool mode)
+void In_Diem(DS_LOP_TIN_CHI& ds_ltc, DS_SV_DANG_KY& ds_sv_dk, LOP_TIN_CHI* ltc, DS_SINH_VIEN ds_sv, bool mode)
 {
+	clrscr();
 	if (mode == false) {
 		TREE_MON_HOC T=NULL;
 		Doc_file_mon_hoc(T);
 		SetBGColor(12);
 		gotoxy(73, 2);
 		cout << "BANG DIEM MON HOC: ";
-		get_ten_mh(T, z.MAMH); cout << endl;
+		get_ten_mh(T, ltc->MAMH); cout << endl;
 		gotoxy(65, 4);
-		cout << "NIEN KHOA: " << z.NIEN_KHOA << "    HOC KI: " << z.HOC_KY << "     NHOM :" << z.NHOM;
+		cout << "NIEN KHOA: " << ltc->NIEN_KHOA << "    HOC KI: " << ltc->HOC_KY << "     NHOM :" << ltc->NHOM;
 		Normal();
 	}
+
 	int stt = 1, x = 45, y = 8, trang = 1, luachon = 0;
-	int tong_trang = so_trang(1.0 * ds_sv_dk.tongSVDK / 20);
+	int tong_trang = so_trang(1.0 * (ds_sv_dk.tongSVDK - So_luong_sv_huy_lop(ltc) )/ 20);
+
+	if (tong_trang == 0)
+	{
+		clrscr();
+		gotoxy(70, 10);
+		cout << "Danh sach lop trong !!!";
+		Sleep(1500);
+		gotoxy(70, 10);
+		cout << "                   ";
+		return;
+	}
+
 	NODE_SINH_VIEN* sv;
-	NOTE_SV_DANG_KI* sv_dk;
+	NODE_SV_DANG_KI* sv_dk;
+	
 	if (mode == true) {
 		SetBGColor(12);
 		gotoxy(50, 34);
@@ -852,26 +889,34 @@ chuyen_trang:
 	gotoxy(x + 56, y);	cout << char(179) << "  TEN" << "    ";
 	gotoxy(x + 71, y);	cout << char(179) << "  DIEM";
 	Normal();
+
 	gotoxy(x + 9, y + 1);	cout << char(179) << "              " << char(179) << "                               " << char(179) << "              " << char(179);
 
 	get_SV_DK(ds_sv_dk, ds_sv, sv_dk, sv, stt - 1);
+
+
 	int y1 = 1, count = 0;
-	for (NOTE_SV_DANG_KI* i = sv_dk; i != NULL && count < 20; i = i->pNext)
+	for (NODE_SV_DANG_KI* i = sv_dk; i != NULL && count < 20; i = i->pNext)
 	{
-		for (NODE_SINH_VIEN* j = ds_sv.pHead; j != NULL; j = j->pNext)
-			if (strcmp(j->data.MASV, i->data.MASV) == 0)
-			{
-				count++;
-				gotoxy(x + 9, y + (++y1));	cout << char(179) << "              " << char(179) << "                               " << char(179) << "              " << char(179);
-				gotoxy(x + 2 + 1, y + y1);	cout << stt++;
-				gotoxy(x + 9 + 3, y + y1);	cout << j->data.MASV;
-				gotoxy(x + 24 + 3, y + y1);	cout << j->data.HO;
-				gotoxy(x + 56 + 3, y + y1);	cout << j->data.TEN;
-				if (i->data.DIEM != -1) {
-					gotoxy(x + 71 + 3, y + y1);	cout << i->data.DIEM;
+		if (i->data.HUYDK == 0)
+		{
+			for (NODE_SINH_VIEN* j = ds_sv.pHead; j != NULL; j = j->pNext)
+				if (strcmp(j->data.MASV, i->data.MASV) == 0)
+				{
+					count++;
+					y1++;
+					gotoxy(x + 9, y + y1);	cout << char(179) << "              " << char(179) << "                               " << char(179) << "              " << char(179);
+					gotoxy(x + 2 + 1, y + y1);	cout << stt++;
+					gotoxy(x + 9 + 3, y + y1);	cout << j->data.MASV;
+					gotoxy(x + 24 + 3, y + y1);	cout << j->data.HO;
+					gotoxy(x + 56 + 3, y + y1);	cout << j->data.TEN;
+					if (i->data.DIEM != -1) {
+						gotoxy(x + 71 + 3, y + y1);	cout << i->data.DIEM;
+					}
+					break;
 				}
-				break;
-			}
+		}
+		
 	}
 	if (mode == true)
 	{
@@ -890,12 +935,14 @@ chuyen_trang:
 			}
 			else
 			{
+				cout << count;
 				get_SV_DK(ds_sv_dk, ds_sv, sv_dk, sv, stt - count - 1 + luachon - 1);
 				Normal_SV_DK(sv_dk->data, sv, x, y + 2 + luachon - 1, stt - count - 1 + luachon);
 				get_SV_DK(ds_sv_dk, ds_sv, sv_dk, sv, stt - count - 1 + luachon);
 				HighLight_SV_DK(sv_dk, sv, x, y + 2 + luachon, stt - count - 1 + luachon + 1);
 			}
 		}
+
 		else if (kitu == key_Up && mode == true)
 		{
 			luachon--;
@@ -935,72 +982,87 @@ chuyen_trang:
 		}
 		else if (kitu ==key_Enter && mode == true)
 		{
-			HideCursor(false);
-			SetBGColor(color_green);
+			if (sv_dk->data.HUYDK == 1)
+				{
+					gotoxy(70, 33);
+					cout << "Sinh vien nay da huy dang ki lop !!!";
+					Sleep(1500);
+					gotoxy(70, 33);
+					Normal();
+					cout << "                                         ";
+				}
+				else
+				{
+				HideCursor(false);
 
-			gotoxy(x + 71 + 1, y + 2 + luachon);
-			cout << "          ";
-			int a = 0;
-			if (sv_dk->data.DIEM > 0)
-			{
-				gotoxy(x + 71 + 3, y + 2 + luachon);
-				cout << sv_dk->data.DIEM;
-				if (sv_dk->data.DIEM == 10) a = 2;
-				else a = 1;
-			}
-		reset:
-			gotoxy(x + 71 + 3 + a, y + 2 + luachon);
-			while (true)
-			{
-				kitu = GetKey();
-				if (!dieukien(kitu) && so(kitu) && a < 2)
+				SetBGColor(color_green);
+
+				gotoxy(x + 71 + 1, y + 2 + luachon);
+				cout << "          ";
+				int a = 0;
+				if (sv_dk->data.DIEM > 0)
 				{
-					a++;
-					if (sv_dk->data.DIEM < 0)
-						sv_dk->data.DIEM = 0;
-					sv_dk->data.DIEM = sv_dk->data.DIEM * 10 + int(kitu - 48);
-					cout << kitu;
-				}
-				else if (kitu == key_bkspace && a > 0)
-				{
-					a = 0;
-					sv_dk->data.DIEM = 0;
 					gotoxy(x + 71 + 3, y + 2 + luachon);
-					cout << "  ";
-					gotoxy(x + 71 + 3, y + 2 + luachon);
+					cout << sv_dk->data.DIEM;
+					if (sv_dk->data.DIEM == 10) a = 2;
+					else a = 1;
 				}
-				else if (kitu == key_Enter)
+			reset:
+
+				gotoxy(x + 71 + 3 + a, y + 2 + luachon);
+				while (true)
 				{
-					if (sv_dk->data.DIEM > 10)
+					kitu = GetKey();
+					if (!kitudieukhien(kitu) && kituso(kitu) && a < 2)
 					{
-						Normal2();
-						gotoxy(70, 33);
-						cout << "Diem he so 10, ban vui long nhap lai !!!";
-						Sleep(1500);
-						gotoxy(70, 33);
-						Normal();
-						cout << "                                         ";
-						SetBGColor(6);
-						goto reset;
+						a++;
+						if (sv_dk->data.DIEM < 0)
+							sv_dk->data.DIEM = 0;
+						sv_dk->data.DIEM = sv_dk->data.DIEM * 10 + int(kitu - 48);
+						cout << kitu;
 					}
-					else
+					else if (kitu == key_bkspace && a > 0)
 					{
-						BGHightLight();
-						HideCursor(true);
-						gotoxy(x + 71 + 1, y + 2 + luachon);
-						cout << "          ";
-						if (a == 0) sv_dk->data.DIEM = -1;
+						a = 0;
+						sv_dk->data.DIEM = 0;
+						gotoxy(x + 71 + 3, y + 2 + luachon);
+						cout << "  ";
+						gotoxy(x + 71 + 3, y + 2 + luachon);
+					}
+					else if (kitu == key_Enter)
+					{
+						if (sv_dk->data.DIEM > 10)
+						{
+							Normal2();
+							gotoxy(70, 33);
+							cout << "Diem he so 10, ban vui long nhap lai !!!";
+							Sleep(1500);
+							gotoxy(70, 33);
+							Normal();
+							cout << "                                         ";
+							SetBGColor(6);
+							goto reset;
+						}
 						else
 						{
-							gotoxy(x + 71 + 3, y + 2 + luachon);
-							cout << sv_dk->data.DIEM;
+							BGHightLight();
+							HideCursor(true);
+							gotoxy(x + 71 + 1, y + 2 + luachon);
+							cout << "          ";
+							if (a == 0) sv_dk->data.DIEM = -1;
+							else
+							{
+								gotoxy(x + 71 + 3, y + 2 + luachon);
+								cout << sv_dk->data.DIEM;
+							}
+							Ghi_file_lop_tin_chi(ds_ltc);
+							Normal();
+							break;
 						}
-						Ghi_file_lop_tin_chi(ds_ltc);
-						Normal();
-						break;
 					}
 				}
-			}
+				}
+			
 		}
 		else if (kitu == key_esc)
 		{

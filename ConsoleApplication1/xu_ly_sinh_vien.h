@@ -189,6 +189,7 @@ void ds_theo_ma_lop(ds_sinh_vien ds, ds_sinh_vien& ds_lop, char* malop)
 			them_sinhvien(ds_lop, sv);
 		}
 	}
+	flashSort(ds_lop);
 }
 
 bool Search_MaLop(ds_sinh_vien ds, char* malop)
@@ -213,7 +214,7 @@ dien:
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && chu_so(kitu) && f < MAX_MALOP)
+		if (!kitudieukhien(kitu) && chu_so(kitu) && f < MAX_MALOP)
 		{
 			malop[f] = chu_in_hoa(kitu);
 			cout << malop[f++];
@@ -327,6 +328,7 @@ timkiem:
 	NODE_SINH_VIEN* STACK[100];
 	int sp = -1;
 	NODE_SINH_VIEN* h_light;
+chuyen_trang:
 	if (mode == true)
 	{
 		SetBGColor(12);
@@ -347,7 +349,6 @@ timkiem:
 	SetColor(15);
 	if (mode == true) cout << "DANH SACH TAT CA SINH VIEN";
 	else cout << "DANH SACH SINH VIEN CUA LOP " << ds_sv.pHead->data.MALOP;
-chuyen_trang:
 	xoa_man_hinh();
 	Normal();
 	HideCursor(true);
@@ -522,7 +523,7 @@ chuyen_trang:
 					xoa_man_hinh();
 					goto tudau;
 				}
-				else if (!dieukien(kitu) && f < MAX_MAMH)
+				else if (!kitudieukhien(kitu) && f < MAX_MAMH)
 				{
 
 					if (chu(kitu)) {
@@ -663,7 +664,7 @@ Masv:Normal2();
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && chu_so(kitu) && kitu != key_Space && a < MAX_MASV)
+		if (!kitudieukhien(kitu) && chu_so(kitu) && kitu != key_Space && a < MAX_MASV)
 		{
 			p->data.MASV[a] = chu_in_hoa(kitu);
 			cout << p->data.MASV[a++];
@@ -687,7 +688,7 @@ Ho:Normal2();
 	{
 		kitu = GetKey();
 		if (kitu == key_esc) goto Out;
-		else if (!dieukien(kitu) && b < MAX_HO)
+		else if (!kitudieukhien(kitu) && b < MAX_HO)
 		{
 			if (chu(kitu)) {
 				p->data.HO[b] = kitu;
@@ -723,7 +724,7 @@ Ten:Normal2();
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && chu(kitu) && c < MAX_TEN)
+		if (!kitudieukhien(kitu) && chu(kitu) && c < MAX_TEN)
 		{
 			p->data.TEN[c] = chu_in_thuong(kitu);
 			p->data.TEN[0] = chu_in_hoa(p->data.TEN[0]);
@@ -813,7 +814,7 @@ Sdt:Normal2();
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && so(kitu) && e < MAX_SDT)
+		if (!kitudieukhien(kitu) && kituso(kitu) && e < MAX_SDT)
 		{
 			p->data.SDT[e++] = kitu;
 			cout << kitu;
@@ -838,7 +839,7 @@ Malop:
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && chu_so(kitu) && f < MAX_MALOP)
+		if (!kitudieukhien(kitu) && chu_so(kitu) && f < MAX_MALOP)
 		{
 			p->data.MALOP[f] = chu_in_hoa(kitu);
 			cout << p->data.MALOP[f++];
@@ -1076,7 +1077,7 @@ void flashSort(DS_SINH_VIEN &ds_sv) {
 		p->data = a[i];
 		i++;
 	}
-
+	delete[] a;
 
 
 }

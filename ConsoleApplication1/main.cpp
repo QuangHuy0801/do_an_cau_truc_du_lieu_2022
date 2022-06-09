@@ -5,6 +5,7 @@
 #include "xu_ly_mon_hoc.h"
 #include "xu_li_diem.h"
 #include "xu_li_lop_tin_chi.h" 
+
 using namespace std;
 
 int main()
@@ -13,11 +14,13 @@ int main()
 	SetSizeWindows(1200, 700);
 	RemoveScrollbar();
 	int luachon = 1, vt_y = 0;
+	
 	while (true)
 	{
 		luachon = DrawMenu(luachon - 1, vt_y);
 		if (luachon == 1)
 		{
+			//LOP TIN CHI
 			menu_ltc();
 			vt_y = 0;
 		}

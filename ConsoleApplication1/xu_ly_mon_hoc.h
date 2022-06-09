@@ -15,7 +15,7 @@ TREE_MON_HOC get_mon_hoc( TREE_MON_HOC ds, int vt);
 void HighLight_mon_hoc(TREE_MON_HOC p, int x, int y, int stt);
 void in_ds_mon_hoc(TREE_MON_HOC& T, bool mode);
 void Inorder_in(TREE_MON_HOC T, int& count, int x, int y, int& y1, int& stt);
-void Inorder_in_thu_tu(TREE_MON_HOC T, int& count, int x, int y, int& y1, int& stt);
+//void Inorder_in_thu_tu(TREE_MON_HOC T, int& count, int x, int y, int& y1, int& stt);
 
 
 #define MAX 10000
@@ -199,7 +199,7 @@ Mamh:
 	{
 		kitu = GetKey();
 		if (kitu == key_esc) goto Out;
-		else if (!dieukien(kitu) && a < MAX_MAMH)
+		else if (!kitudieukhien(kitu) && a < MAX_MAMH)
 		{
 
 			if (chu_so(kitu)) {
@@ -230,7 +230,7 @@ Tenmh:
 	{
 		kitu = GetKey();
 		if (kitu == key_esc) goto Out;
-		else if (!dieukien(kitu) && b < MAX_TENMH)
+		else if (!kitudieukhien(kitu) && b < MAX_TENMH)
 		{
 
 			if (chu_so(kitu)) {
@@ -260,7 +260,7 @@ Stclt:
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && so(kitu) && c < 1)
+		if (!kitudieukhien(kitu) && kituso(kitu) && c < 1)
 		{
 			c++;
 			p->data.STCLT = int(kitu - 48);
@@ -285,7 +285,7 @@ Stcth:
 	while (true)
 	{
 		kitu = GetKey();
-		if (!dieukien(kitu) && so(kitu) && d < 1)
+		if (!kitudieukhien(kitu) && kituso(kitu) && d < 1)
 		{
 			d++;
 			p->data.STCTH = int(kitu - 48);
@@ -448,25 +448,25 @@ void Inorder_in(TREE_MON_HOC T,int &count,int x,int y,int &y1,int &stt) {
 	}
 }
 
-void Inorder_in_thu_tu(TREE_MON_HOC T, int& count, int x, int y, int& y1, int& stt) {
-	if (T != NULL) {
-		Inorder_in_thu_tu(T->pleft, count, x, y, y1, stt);
-		if (count < 20 && T->key >= stt) {
-			mon_hoc a;
-			a = T->data;
-			count++;
-			gotoxy(x + 2, y + y1);
-			cout << "    " << char(179) << "              " << char(179) << "                                  " << char(179) << "               " << char(179);
-			gotoxy(x + 2, y + y1);					cout << T->key;
-			gotoxy(x + 2 + 5 + 2, y + y1);			cout << a.MAMH;
-			gotoxy(x + 12 + 10 + 2, y + y1);		cout << a.TENMH;
-			gotoxy(x + 22 + 33 + 9, y + y1);		cout << a.STCLT;
-			gotoxy(x + 52 + 15 + 9, y + (y1++));	cout << "   " << a.STCTH;
-			cout << endl;
-		}
-		Inorder_in_thu_tu(T->pright, count, x, y, y1, stt);
-	}
-}
+//void Inorder_in_thu_tu(TREE_MON_HOC T, int& count, int x, int y, int& y1, int& stt) {
+//	if (T != NULL) {
+//		Inorder_in_thu_tu(T->pleft, count, x, y, y1, stt);
+//		if (count < 20 && T->key >= stt) {
+//			mon_hoc a;
+//			a = T->data;
+//			count++;
+//			gotoxy(x + 2, y + y1);
+//			cout << "    " << char(179) << "              " << char(179) << "                                  " << char(179) << "               " << char(179);
+//			gotoxy(x + 2, y + y1);					cout << T->key;
+//			gotoxy(x + 2 + 5 + 2, y + y1);			cout << a.MAMH;
+//			gotoxy(x + 12 + 10 + 2, y + y1);		cout << a.TENMH;
+//			gotoxy(x + 22 + 33 + 9, y + y1);		cout << a.STCLT;
+//			gotoxy(x + 52 + 15 + 9, y + (y1++));	cout << "   " << a.STCTH;
+//			cout << endl;
+//		}
+//		Inorder_in_thu_tu(T->pright, count, x, y, y1, stt);
+//	}
+//}
 
 
 
@@ -546,7 +546,7 @@ chuyen_trang:;
 	cout << "    " << char(179) << "              " << char(179) << "                                  " << char(179) << "               " << char(179);
 	if (mode == true)
 	{
-		Inorder_in_thu_tu(T, count, x, y, y1, stt);
+		Inorder_in(T, count, x, y, y1, stt);
 		if (tong_mon - stt > 20) {
 			stt += 20;
 		}

@@ -8,9 +8,9 @@
 #define MAX_ID 1000
 using namespace std;
 void xoa_man_hinh();
-bool dieukien(char& c);
+bool kitudieukhien(char& c);
 bool chu(char& a);
-bool so(char& a);
+bool kituso(char& a);
 bool chu_so(char& a);
 void xoa_kitu(char* a, int vt);
 void chuan_hoa_chu(char* a);
@@ -30,14 +30,14 @@ int searchStandFor(TREE_MON_HOC& T, TREE_MON_HOC& p);
 void xoa_man_hinh()
 {
 	Normal();
-	for (int i = 0; i <= 26; i++)
+	for (int i = 0; i <= 32; i++)
 	{
-		gotoxy(43, 6 + i);
-		cout << "                                                                                                       ";
+		gotoxy(40, i);       
+		cout << "                                                                                                                      ";
 	}
 }
 
-bool dieukien(char& c)
+bool kitudieukhien(char& c)
 {
 	if (c == key_Down || c == key_Up || c == key_Left || c == key_Right)
 		return true;
@@ -52,7 +52,7 @@ bool chu(char& a)
 	return false;
 }
 
-bool so(char& a)
+bool kituso(char& a)
 {
 	if (a >= '0' && a <= '9')
 		return true;
@@ -61,7 +61,7 @@ bool so(char& a)
 
 bool chu_so(char& a)
 {
-	if (chu(a) || so(a))
+	if (chu(a) || kituso(a))
 		return true;
 	return false;
 }
@@ -341,7 +341,7 @@ int balanceRight(TREE_MON_HOC& T)
 	}
 }
 
-int Inrorder_Sort(TREE_MON_HOC& T, mon_hoc a, int n) {    //tim gia tri thich hop cua key de them vao tree
+int Inrorder_Find_Number(TREE_MON_HOC& T, mon_hoc a, int n) {    //tim gia tri thich hop cua key de them vao tree
 	mon_hoc DATA;
 	TREE_MON_HOC p = T;
 	while (p != NULL) {
@@ -468,7 +468,7 @@ void them_mon_hoc(TREE_MON_HOC& T, TREE_MON_HOC p) {
 		T = p;
 	}
 	else {
-		int so = Inrorder_Sort(T, p->data, 0);
+		int so = Inrorder_Find_Number(T, p->data, 0);
 		Inorder_Up(T, so);
 		InsertNode(T, so, p->data);
 	}
@@ -770,26 +770,21 @@ void Ghi_file(ds_sinh_vien ds)
 
 
 
-
-
-
-
-
 void Init_ds_dang_ki(DS_SV_DANG_KY& dsdk)
 {
 	dsdk.pHead = NULL;
 }
 
-void them_sv_dang_ki(DS_SV_DANG_KY& ds, NOTE_SV_DANG_KI* x)
+void them_sv_dang_ki(DS_SV_DANG_KY& ds, NODE_SV_DANG_KI* x)
 {
-	NOTE_SV_DANG_KI* p = ds.pHead;
+	NODE_SV_DANG_KI* p = ds.pHead;
 	if (ds.pHead == NULL)
 		ds.pHead = x;
 	else {
 		while (p->pNext != NULL) {
 			p = p->pNext;
 		}
-		p->pNext = x;//Gán next cua thang cuoi = x.
+		p->pNext = x;
 	}
 	ds.tongSVDK++;
 }
@@ -809,13 +804,13 @@ void them_vao_lop_tin_chi(DS_LOP_TIN_CHI& ds_ltc, LOP_TIN_CHI* x)
 }
 
 
-void doc_file_ltc(DS_LOP_TIN_CHI& ds_ltc, int& nLTC)
+void Doc_file_ltc(DS_LOP_TIN_CHI& ds_ltc, int& nLTC)
 {
 	ifstream filein;
-	filein.open("DS_Lop_tin_chi.txt", ios_base::in);
+	filein.open("ds_loptinchi.txt", ios_base::in);
 	if (filein.fail())
 	{
-		cout << "Mo file (DS_Lop_tin_chi.txt) khong thanh cong. Vui long kiem tra lai !!" << endl;
+		cout << "Mo file (ds_loptinchi.txt) khong thanh cong. Vui long kiem tra lai !!" << endl;
 		return;
 	};
 	string c;
@@ -845,10 +840,13 @@ void doc_file_ltc(DS_LOP_TIN_CHI& ds_ltc, int& nLTC)
 		{
 			for (int i = 0; i < data->tong_sv_dk; i++)
 			{
-				note_sv_dang_ki* sv_dk = new note_sv_dang_ki;
+				node_sv_dang_ki* sv_dk = new node_sv_dang_ki;
 				filein.getline(sv_dk->data.MASV, MAX_MASV, ',');
 				filein >> sv_dk->data.DIEM;
-				getline(filein, c);
+				filein.ignore(1);
+				filein >> sv_dk->data.HUYDK;
+				filein.ignore();
+				//getline(filein, c);
 				sv_dk->pNext = NULL;
 				them_sv_dang_ki(data->DSSV, sv_dk);
 			}
@@ -868,29 +866,29 @@ bool check_huy_lop(LOP_TIN_CHI* x)
 void Ghi_file_lop_tin_chi(DS_LOP_TIN_CHI ds_ltc)
 {
 	ofstream fileOut;
-	fileOut.open("./DS_Lop_tin_chi.txt", ios_base::out);
+	fileOut.open("ds_loptinchi.txt", ios_base::out);
 	fileOut << ds_ltc.sl << "\n";
 	for (int i = 0; i < ds_ltc.sl; i++)
 	{
 		fileOut << ds_ltc.data[i]->MALOPTC << "," << ds_ltc.data[i]->MAMH << ","
 			<< ds_ltc.data[i]->NIEN_KHOA << "," << ds_ltc.data[i]->HOC_KY << ","
 			<< ds_ltc.data[i]->NHOM << "," << ds_ltc.data[i]->SO_SV_MIN << ","
-			<< ds_ltc.data[i]->SO_SV_MAX << ",";
-		if (check_huy_lop(ds_ltc.data[i]))
+			<< ds_ltc.data[i]->SO_SV_MAX << "," << ds_ltc.data[i]->HUY_LOP << "\n";
+		/*if (check_huy_lop(ds_ltc.data[i]))
 		{
 			fileOut << 1 << "\n";
 		}
 		else
 		{
 			fileOut << 0 << "\n";
-		}
+		}*/
 		fileOut << ds_ltc.data[i]->tong_sv_dk << "\n";
 		if (ds_ltc.data[i]->tong_sv_dk > 0)
 		{
-			NOTE_SV_DANG_KI* k = NULL;
+			NODE_SV_DANG_KI* k = NULL;
 			for (k = ds_ltc.data[i]->DSSV.pHead; k != NULL; k = k->pNext)
 			{
-				fileOut << k->data.MASV << "," << k->data.DIEM << "\n";
+				fileOut << k->data.MASV << "," << k->data.DIEM << ',' << k->data.HUYDK << "\n";
 			}
 		}
 	}
@@ -900,7 +898,7 @@ bool check_mh_dk(char* mamh)
 {
 	DS_LOP_TIN_CHI ds_ltc;
 	int n_ltc;
-	doc_file_ltc(ds_ltc, n_ltc);
+	Doc_file_ltc(ds_ltc, n_ltc);
 	for (int i = 0; i < n_ltc; i++)
 		if (strcmp(ds_ltc.data[i]->MAMH, mamh) == 0)
 			return true;
@@ -911,9 +909,9 @@ bool check_sv_dk(char* masv)
 {
 	DS_LOP_TIN_CHI ds_ltc;
 	int n_ltc;
-	doc_file_ltc(ds_ltc, n_ltc);
+	Doc_file_ltc(ds_ltc, n_ltc);
 	for (int i = 0; i < n_ltc; i++)
-		for (NOTE_SV_DANG_KI* p = ds_ltc.data[i]->DSSV.pHead; p != NULL; p = p->pNext)
+		for (NODE_SV_DANG_KI* p = ds_ltc.data[i]->DSSV.pHead; p != NULL; p = p->pNext)
 			if (strcmp(p->data.MASV, masv) == 0)
 				return true;
 	return false;
@@ -923,11 +921,11 @@ void xoa_sv_ltc(char* masv)
 {
 	DS_LOP_TIN_CHI ds_ltc;
 	int n_ltc;
-	doc_file_ltc(ds_ltc, n_ltc);
-	NOTE_SV_DANG_KI* t = new NOTE_SV_DANG_KI;
+	Doc_file_ltc(ds_ltc, n_ltc);
+	NODE_SV_DANG_KI* t = new NODE_SV_DANG_KI;
 	for (int i = 0; i < n_ltc; i++)
 	{
-		for (NOTE_SV_DANG_KI* p = ds_ltc.data[i]->DSSV.pHead; p != NULL; t = p, p = p->pNext)
+		for (NODE_SV_DANG_KI* p = ds_ltc.data[i]->DSSV.pHead; p != NULL; t = p, p = p->pNext)
 		{
 			if (strcmp(masv, p->data.MASV) == 0)
 			{
@@ -938,7 +936,7 @@ void xoa_sv_ltc(char* masv)
 					ds_ltc.data[i]->tong_sv_dk--;
 					break;
 				}
-				else if (p->pNext=NULL)
+				else if (p->pNext == NULL)
 				{
 					t->pNext = NULL;
 					delete p;

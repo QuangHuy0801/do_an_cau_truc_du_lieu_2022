@@ -63,19 +63,20 @@ struct sv_dang_ky
 {
 	char MASV[MAX_MASV];
 	float DIEM;
-	bool HUYDK = true;
+	bool HUYDK = false;
 };
 typedef struct sv_dang_ky SV_DANG_KY;
 
-struct note_sv_dang_ki {
+
+struct node_sv_dang_ki {
 	SV_DANG_KY data;
-	struct  note_sv_dang_ki* pNext = NULL;
+	struct node_sv_dang_ki* pNext = NULL;
 };
-typedef struct note_sv_dang_ki NOTE_SV_DANG_KI;
+typedef struct node_sv_dang_ki NODE_SV_DANG_KI;
 
 struct ds_sv_dang_ky
 {
-	NOTE_SV_DANG_KI *pHead = NULL;
+	NODE_SV_DANG_KI *pHead = NULL;
 	int tongSVDK=0;
 };
 typedef struct ds_sv_dang_ky DS_SV_DANG_KY;
@@ -93,7 +94,7 @@ struct lop_tin_chi
 	int SO_SV_MAX;
 	int SO_SV_MIN;
 	DS_SV_DANG_KY DSSV;
-	bool HUY_LOP;
+	bool HUY_LOP = false;
 	int tong_sv_dk;
 };
 typedef struct lop_tin_chi LOP_TIN_CHI;
